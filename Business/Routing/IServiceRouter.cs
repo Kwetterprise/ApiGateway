@@ -16,7 +16,21 @@
         public async Task<Stream> Route(Service service, string endpoint, HttpContext request)
         {
             using var client = new HttpClient();
-            return await client.GetStreamAsync("http://google.com");
+
+            var url = service.Url + endpoint;
+
+            switch (request.Request.Method)
+            {
+                case "GET":
+                {
+                    return await client.GetStreamAsync(url);
+                }
+                case "POST":
+                {
+                    return await client.PostAsync(url, request.Request.)
+                }
+            }
+
         }
     }
 }
